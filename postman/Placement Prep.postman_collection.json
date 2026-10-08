@@ -1,0 +1,20 @@
+{
+  "info": {"name":"Placement Prep Platform","description":"Basic API requests for the local Spring Boot app. Start at http://localhost:8080.","schema":"https://schema.getpostman.com/json/collection/v2.1.0/collection.json"},
+  "variable":[{"key":"baseUrl","value":"http://localhost:8080"},{"key":"applicationId","value":"1"},{"key":"topicId","value":"1"}],
+  "item":[
+    {"name":"Dashboard","request":{"method":"GET","url":"{{baseUrl}}/api/dashboard"}},
+    {"name":"Create application","event":[{"listen":"test","script":{"exec":["if (pm.response.code === 201) pm.collectionVariables.set('applicationId', pm.response.json().id);"]}}],"request":{"method":"POST","header":[{"key":"Content-Type","value":"application/json"}],"body":{"mode":"raw","raw":"{\n  \"companyName\": \"Example Ltd\",\n  \"jobRole\": \"Graduate Engineer\",\n  \"location\": \"Pune\",\n  \"applicationDate\": \"2026-09-28\",\n  \"status\": \"APPLIED\",\n  \"jobType\": \"FULL_TIME\",\n  \"notes\": \"Campus application\"\n}"},"url":"{{baseUrl}}/api/applications"}},
+    {"name":"List applications","request":{"method":"GET","url":"{{baseUrl}}/api/applications"}},
+    {"name":"Get application by ID","request":{"method":"GET","url":"{{baseUrl}}/api/applications/{{applicationId}}"}},
+    {"name":"Update application","request":{"method":"PUT","header":[{"key":"Content-Type","value":"application/json"}],"body":{"mode":"raw","raw":"{\n  \"companyName\": \"Example Ltd\",\n  \"jobRole\": \"Graduate Engineer\",\n  \"location\": \"Pune\",\n  \"applicationDate\": \"2026-09-28\",\n  \"status\": \"INTERVIEW\",\n  \"jobType\": \"FULL_TIME\",\n  \"notes\": \"Prepare Java fundamentals\"\n}"},"url":"{{baseUrl}}/api/applications/{{applicationId}}"}},
+    {"name":"Delete application","request":{"method":"DELETE","url":"{{baseUrl}}/api/applications/{{applicationId}}"}},
+    {"name":"Create topic","request":{"method":"POST","header":[{"key":"Content-Type","value":"application/json"}],"body":{"mode":"raw","raw":"{\n  \"name\": \"Binary search\",\n  \"category\": \"DSA\",\n  \"difficulty\": \"MEDIUM\",\n  \"completed\": false,\n  \"notes\": \"Practice sorted-array problems\"\n}"},"url":"{{baseUrl}}/api/topics"}},
+    {"name":"List topics by category","request":{"method":"GET","url":"{{baseUrl}}/api/topics?category=DSA"}},
+    {"name":"Update topic","request":{"method":"PUT","header":[{"key":"Content-Type","value":"application/json"}],"body":{"mode":"raw","raw":"{\n  \"name\": \"Binary search\",\n  \"category\": \"DSA\",\n  \"difficulty\": \"MEDIUM\",\n  \"completed\": true,\n  \"notes\": \"Completed practice set\"\n}"},"url":"{{baseUrl}}/api/topics/{{topicId}}"}},
+    {"name":"Create study session","request":{"method":"POST","header":[{"key":"Content-Type","value":"application/json"}],"body":{"mode":"raw","raw":"{\n  \"date\": \"2026-09-28\",\n  \"topic\": \"Binary search\",\n  \"durationMinutes\": 45,\n  \"notes\": \"Solved practice questions\"\n}"},"url":"{{baseUrl}}/api/study-sessions"}},
+    {"name":"Create mock test","request":{"method":"POST","header":[{"key":"Content-Type","value":"application/json"}],"body":{"mode":"raw","raw":"{\n  \"testName\": \"Java practice\",\n  \"subject\": \"Java\",\n  \"date\": \"2026-09-28\",\n  \"score\": 38,\n  \"totalMarks\": 50\n}"},"url":"{{baseUrl}}/api/mock-tests"}},
+    {"name":"Invalid application (expect 400)","request":{"method":"POST","header":[{"key":"Content-Type","value":"application/json"}],"body":{"mode":"raw","raw":"{\n  \"companyName\": \"\",\n  \"jobRole\": \"\"\n}"},"url":"{{baseUrl}}/api/applications"}},
+    {"name":"Invalid mock score (expect 400)","request":{"method":"POST","header":[{"key":"Content-Type","value":"application/json"}],"body":{"mode":"raw","raw":"{\n  \"testName\": \"Bad sample\",\n  \"subject\": \"Java\",\n  \"date\": \"2026-09-28\",\n  \"score\": 60,\n  \"totalMarks\": 50\n}"},"url":"{{baseUrl}}/api/mock-tests"}}
+  ]
+}
+
